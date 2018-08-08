@@ -1,8 +1,18 @@
 import React from 'react';
-import Cell from 'Cell';
+import Cell from './Cell';
 
-export default class Board extends React.Component {
-    render() {
-        return <div>{for (i = 0; i < 10; i++) return <Cell />}</div>
-    }
+
+const Board = (props) => {
+    const cells = [];
+    const generateCells = () => {
+        for (let i = 0; i < 10; i++) {
+            cells.push(<Cell />);
+        }
+    };
+    generateCells();
+    return <div>
+        {cells}
+    </div>
 }
+
+export default Board;
