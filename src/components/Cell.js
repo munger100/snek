@@ -1,7 +1,9 @@
 import React from 'react';
 
 const Cell = (props) => {
-    return <div className="cell">cell</div>
+    return <div onClick={() => props.onClick()} className={props.alive ? "alive " : "dead"}>   
+    {props.d}
+    </div>
 };
 
 export default Cell;
