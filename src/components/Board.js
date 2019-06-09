@@ -1,11 +1,11 @@
 import React from 'react';
 import Cell from './Cell';
-import Swipe from 'react-easy-swipe';
 
 class Board extends React.Component {
     constructor(props) {
         super(props);
         this.size = 9;
+        this.score_to_win = this.size*this.size;
         this.swipe_direction = "u";
         const init_state = {
             cells: this.initCells(this.size),
@@ -15,13 +15,15 @@ class Board extends React.Component {
             snake: [[0, 0]],
             treatCount: 1,
             treat: [Math.floor(Math.random()*this.size), Math.floor(Math.random()*(this.size - 1) + 1)],
+            score: 1,
         }
         this.treatGrid = this.initTreatGrid(this.size);
         this.state = init_state;
-        this.timer = setInterval(this.tick, 500);
+        this.speed = this.props.speed;
+        this.timer = setInterval(this.tick, this.props.speed);
     };
 
-    handleTap(direction, cell) { 
+    handleDir(direction, cell) {
         let dir = this.state.direction;
         switch (direction) {
             case 'u':       
@@ -45,12 +47,11 @@ class Board extends React.Component {
                 }
                 break;
         }
-        console.log("Tapped " + dir)
-        this.setState({direction: dir});
+        this.changeDirection(dir);
     }
      
     onKeyPressed(e) {
-        const {last_dir} = this.state; // last_dir prevents snake from flipping 180 degrees, which would kill.
+        const {last_dir} = this.state; // last_dir prevents snake from flipping 180 degrees by switching direction twice in between ticks, which would kill.
         var dir = this.state.direction;
         switch (e.which) {
             case 87:       
@@ -74,7 +75,7 @@ class Board extends React.Component {
                 }
                 break;
         }
-        this.setState({direction: dir});
+        this.changeDirection(dir);
     }
     pickFromTreatGrid = (grid) => {
         const available = grid.filter(entry => !this.state.snake.includes(entry));
@@ -98,23 +99,27 @@ class Board extends React.Component {
             }
         }
         return cells;
-    };
+    }   
     feedCells(state) {
-        const to_display = [];
         if (state.cells == null) {
             return "Cells Null";
         }
+        const to_display = [];
         for (let y=0; y < state.cells.length; y++) {
             for (let x = 0; x < state.cells[y].length; x++) {
                 to_display.push(this.newCell(state.cells[y][x].alive, x, y));
             }
         }
-        console.log("cells fed")
         return to_display;
     };
     tick = () => {
         if (this.props.live) {
             this.calculateStep(this.state)
+        }
+        if (this.speed != this.props.speed) {
+            this.speed = this.props.speed;
+            clearInterval(this.timer);
+            this.timer = setInterval(this.tick, this.speed);
         }
     };
     getDirFromCellTap(x, y, dir, s) {
@@ -141,9 +146,10 @@ class Board extends React.Component {
     }
     newCell = (alive, x, y, str="") => {
         let dir = this.getDirFromCellTap(x, y, this.state.direction, this.size);
-        return <Cell onClick={() => this.handleTap(dir)} alive={alive} key={`${x} ${y}`} ></Cell>
+        return <Cell onClick={() => this.handleDir
+    (dir)} alive={alive} key={`${x} ${y}`} ></Cell>
     }
-    
+
     calculateStep = (state) => {
         const {cells, direction, head, snake, treat, treatCount} = state;
         let increment = false;
@@ -203,10 +209,13 @@ class Board extends React.Component {
             new_cells[to_remove[1]][to_remove[0]].alive = true;
             new_snake.push(to_remove);
             t = this.pickFromTreatGrid(this.treatGrid);
+            this.props.incrementScore();
             // decrement = true;
         } else {
             new_cells[to_remove[1]][to_remove[0]].alive = false;
-            new_cells[treat[1]][treat[0]].alive = true;
+            if (this.state.score < this.score_to_win) {
+                new_cells[treat[1]][treat[0]].alive = true;
+            }
         }
         
 
@@ -218,19 +227,24 @@ class Board extends React.Component {
             tc = 0;
         }
         
-        if (new_snake.length == this.size**2) {
-            console.log("YOU WON WOAH")
+        if (this.state.score == this.score_to_win) {
+            // if (this.state.score == this.size**2) {
+                console.log("YOU WON WOAH");
+            this.props.handleWin();
+            this.props.toggle();
+        } else {
+            this.setState({
+                cells: new_cells,
+                head: new_head,
+                snake: new_snake,
+                treatCount: tc,
+                treat: t,
+                score: new_snake.length,
+                last_dir: direction,
+            });
         }
 
         // push to new cells
-        this.setState({
-            cells: new_cells,
-            head: new_head,
-            snake: new_snake,
-            treatCount: tc,
-            treat: t,
-            last_dir: direction,
-        });
     };
 
     die = () => {
@@ -249,6 +263,10 @@ class Board extends React.Component {
             } 
         }
         return count.some((i) => i > 1);
+    }
+    changeDirection(d) {
+        this.setState({direction: d});
+        this.props.setDirection(d);
     }
     componentDidMount() {
         document.addEventListener("keydown", event => this.onKeyPressed(event));

@@ -12,7 +12,7 @@
     fill-opacity: 0;
 }
 .board {
-    margin: 15px;
+    margin: 30px;
     width: 300px;
     height: 300px;
     background-color: black;
@@ -26,4 +26,20 @@
     align-content: center;
     display: flex;
     justify-content:center;
+}
+
+.button {
+    margin: 40px;
+    float: right;
+}
+.card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.score-display {
+    font-size: 18px;
+}
+.direction-display {
+    font-size: 18px;
 }
