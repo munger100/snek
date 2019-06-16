@@ -31,9 +31,9 @@ class SpeedSlider extends React.Component {
               color: 'white',
               textAlign: 'center',
               position: 'relative',
-              top: '9px',
+              top: '3px',
               right: '0px',
-              left: '0px',
+              left: '-3px',
               fontSize: '10px',
             },
           };
@@ -50,9 +50,6 @@ class SpeedSlider extends React.Component {
     render() {
         return <React.Fragment>
             <MuiThemeProvider>
-                <h1 style={this.styles.subheader}>
-                    Tick Speed (Ms)
-                </h1>
                 <Slider
                     min={200}
                     max={2000}
