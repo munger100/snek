@@ -121,6 +121,13 @@ class Board extends React.Component {
 
     calculateStep = () => {
         const {cells, direction, head, snake, treat, treatCount, score, scoreToWin: score_to_win, size} = this.state;
+        
+        if (score == score_to_win) {
+            console.log("YOU WON WOAH");
+            this.props.handleWin();
+            this.props.toggle();
+        } 
+        
         let increment = false;
         let t;
         let tc;
@@ -196,22 +203,15 @@ class Board extends React.Component {
             tc = 0;
         }
         
-        if (score == score_to_win) {
-            console.log("YOU WON WOAH");
-            this.props.handleWin();
-            this.props.toggle();
-        } else {
-            this.props.setGameState({
-                cells: new_cells,
-                head: new_head,
-                snake: new_snake,
-                treatCount: tc,
-                treat: t,
-                score: new_snake.length,
-                last_dir: direction,
-            });
-        }
-
+        this.props.setGameState({
+            cells: new_cells,
+            head: new_head,
+            snake: new_snake,
+            treatCount: tc,
+            treat: t,
+            score: new_snake.length,
+            last_dir: direction,
+        });
         // push to new cells
     };
 
