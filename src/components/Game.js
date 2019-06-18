@@ -93,7 +93,7 @@ class Game extends React.Component  {
     render() {
         return (
             <div className={"container"}>
-                <Card style={{width: "100%"}}>
+                <Card stlye={{width: '375px'}}>
                     <CardHeader title={"Snek"} />
                     <CardContent>
                         <Board ref="board" 
@@ -104,15 +104,19 @@ class Game extends React.Component  {
                             handleWin={() => this.props.handleWin()} 
                             toggle={this.die}/>
                         <TouchControls setDirection={this.changeDirection} />
-                        <GameSettingsList handleChange={this.handleChange} />
+                        <div style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center'}} >
+                            <p className={'score-display'}> Score: {this.state.score}</p>
+                            <p className={'direction-display'}> {DirUtil.directionToCharacter(this.state.direction)}</p>
+                            {this.state.dead ? 
+                                <RestartButton className={'button'} restartGame={this.restartGame} /> :
+                                <Button className={'button'} variant="contained" color="primary" onClick={this.toggleState}> {this.state.live ? "Stop" : "Start"} </Button>
+                            }
+                        </div>
                     </CardContent>
                     <CardActions className={'card-actions'} >
-                        <p className={'score-display'}> Score: {this.state.score}</p>
-                        <p className={'direction-display'}> {DirUtil.directionToCharacter(this.state.direction)}</p>
-                        {this.state.dead ? 
-                            <RestartButton className={'button'} restartGame={this.restartGame} /> :
-                            <Button className={'button'} variant="contained" color="primary" onClick={this.toggleState}> {this.state.live ? "Stop" : "Start"} </Button>
-                        }
+                        
+                        <GameSettingsList handleChange={this.handleChange} />
+                        
                     </CardActions>
                 </Card>
             </div>

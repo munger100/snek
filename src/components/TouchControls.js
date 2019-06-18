@@ -17,11 +17,12 @@ class TouchControls extends React.Component {
                 border: "none",
             },
             table: {
+                margin: 'auto',
                 height: '240px',
                 width: '240px',
-                'margin-left': '13%',
             },
             container: {
+                margin: 'auto',
                 height: '260px',
                 width: '100%',
                 float: 'center',
