@@ -1,9 +1,6 @@
 import React from 'react';
 
 class TouchControls extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     getStyles = () => {
         const dimensions = {
             width: '80px',
@@ -22,7 +19,7 @@ class TouchControls extends React.Component {
             table: {
                 height: '240px',
                 width: '240px',
-                'margin-left': '13%'
+                'margin-left': '13%',
             },
             container: {
                 height: '260px',

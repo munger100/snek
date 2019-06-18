@@ -30,9 +30,6 @@ class GameSettingsList extends React.Component {
         return (
             <List
             aria-labelledby="nested-list-subheader"
-            subheader={
-                <ListSubheader component="div" id="nested-list-subheader"> Game Settings </ListSubheader>
-            }
           >
             <ListItem button onClick={this.handleClick}>
                 <ListItemIcon>

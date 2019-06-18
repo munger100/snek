@@ -10,6 +10,8 @@ export const directionToCharacter = (d) => {
             return '↑';
         case 'l':
             return '←';
+        default: 
+            return ' ';
     }
 };
 
@@ -18,24 +20,26 @@ export const onKeyPressed = (e) => {
     var dir = this.state.direction;
     switch (e.which) {
         case 87:       
-            if (dir != "d" && last_dir != "d") {
+            if (dir !== "d" && last_dir !== "d") {
                 dir = "u";
             }
             break;
         case 65:
-            if (dir != "r" && last_dir != "r") {
+            if (dir !== "r" && last_dir !== "r") {
                 dir = "l";
             }
             break;
         case 83:
-            if (dir != "u" && last_dir != "u") {
+            if (dir !== "u" && last_dir !== "u") {
                 dir = "d";
             }
             break;
         case 68:
-            if (dir != "l" && last_dir != "l") {
+            if (dir !== "l" && last_dir !== "l") {
                 dir = "r";
             }
+            break;
+        default:
             break;
     }
     this.changeDirection(dir);

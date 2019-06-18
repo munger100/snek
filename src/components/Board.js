@@ -1,6 +1,6 @@
 import React from 'react';
 import Cell from './Cell';
-import * as GenUtil from "../utils/GeneralUtils";
+import { DropDownMenu } from 'material-ui';
 class Board extends React.Component {
     constructor(props) {
         super(props);
@@ -28,24 +28,26 @@ class Board extends React.Component {
         let dir = this.state.direction;
         switch (direction) {
             case 'u':       
-                if (dir != "d") {
+                if (dir !== "d") {
                     dir = "u";
                 }
                 break;
             case 'l':
-                if (dir != "r") {
+                if (dir !== "r") {
                     dir = "l";
                 }
                 break;
             case 'd':
-                if (dir != "u") {
+                if (dir !== "u") {
                     dir = "d";
                 }
                 break;
             case 'r':
-                if (dir != "l") {
+                if (dir !== "l") {
                     dir = "r";
                 }
+                break;
+            default:
                 break;
         }
         this.props.changeDirection(dir);
@@ -66,7 +68,7 @@ class Board extends React.Component {
     }
     feedCells() {
         const {cells} = this.state;
-        if (cells == null) {
+        if (cells === null) {
             return "Cells Null";
         }
         const to_display = [];
@@ -78,7 +80,7 @@ class Board extends React.Component {
         return to_display;
     };
     tick = () => {
-        const sameState = Object.keys(this.state).map((key) => this.state[key] == this.props.state[key])
+        const sameState = Object.keys(this.state).map((key) => this.state[key] === this.props.state[key])
             .every(x => !!x);
         if (!sameState) {
             const temp_state = {};
@@ -92,20 +94,20 @@ class Board extends React.Component {
         }
     };
     getDirFromCellTap(x, y, dir, s) {
-        if (y == 0 || y == 8) dir = (y == 0 ? "u" : "d");
-        else if (y == 1 || y == 7) {
-            if (x == 0) dir = "l";
-            else if (x == s) dir = "r";
-            else dir = (y == 1 ? "u" : "d");
-        } else if (y == 2 || y == 6) {
+        if (y === 0 || y === 8) dir = (y === 0 ? "u" : "d");
+        else if (y === 1 || y === 7) {
+            if (x === 0) dir = "l";
+            else if (x === s) dir = "r";
+            else dir = (y === 1 ? "u" : "d");
+        } else if (y === 2 || y === 6) {
             if (x < 2) dir = "l";
             else if (x >= s - 2) dir = "r";
-            else dir = (y == 2 ? "u" : "d");
-        }  else if (y == 3 || y == 5) {
+            else dir = (y === 2 ? "u" : "d");
+        }  else if (y === 3 || y === 5) {
             if (x < 4) dir = "l";
-            else if (x == 4) dir = (y == 3 ? "u" : "d");
+            else if (x === 4) dir = (y === 3 ? "u" : "d");
             else dir = "r";
-        } else if (y == 4) {
+        } else if (y === 4) {
             if (x < 4) dir = 'l';
             else if (x > 4) {
                 dir = "r";
@@ -114,15 +116,14 @@ class Board extends React.Component {
         return dir;
     }
     newCell = (alive, x, y, str="") => {
-        const dir = this.getDirFromCellTap(x, y, this.state.direction, this.state.size);
         const is_head = this.props.state.head[0] === x && this.props.state.head[1] === y;
-        return <Cell onClick={() => this.handleCellTap(dir)} head={is_head} alive={alive} key={`${x} ${y}`} ></Cell>
+        return <Cell head={is_head} alive={alive} key={`${x} ${y}`} />
     }
 
     calculateStep = () => {
         const {cells, direction, head, snake, treat, treatCount, score, scoreToWin: score_to_win, size} = this.state;
         
-        if (score == score_to_win) {
+        if (score === score_to_win) {
             console.log("YOU WON WOAH");
             this.props.handleWin();
             return this.props.toggle();
@@ -131,7 +132,7 @@ class Board extends React.Component {
         let increment = false;
         let t;
         let tc;
-        if (treatCount == 0) {
+        if (treatCount === 0) {
             const arr = this.pickFromTreatGrid(this.treatGrid);
             t = [...arr];
             increment = true;
@@ -172,7 +173,7 @@ class Board extends React.Component {
         const new_head = [x, y];
 
         // Duplicate
-        if (snake.some((entry) => entry.every((x, index) => x == new_head[index]))) { 
+        if (snake.some((entry) => entry.every((x, index) => x === new_head[index]))) { 
             return this.die();
         }
         const new_snake = [new_head, ...snake];
@@ -222,7 +223,7 @@ class Board extends React.Component {
         const count = [];
         for (const item in arr) {
             const label = `${item[0]} ${item[1]}`; 
-            if (count[label] != null) {
+            if (count[label] !== null) {
                 count[label] += 1;
             } else {
                 count[label] = 1;
@@ -231,7 +232,6 @@ class Board extends React.Component {
         return count.some((i) => i > 1);
     }
     render() {
-        console.log(this.props.state)
         return <React.Fragment>
                 <div className="board" style={{height: 30*this.props.state.size, width: 30*this.props.state.size}}>
                     {this.feedCells()}

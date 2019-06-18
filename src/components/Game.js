@@ -80,7 +80,6 @@ class Game extends React.Component  {
         const s = Object.assign({}, GenUtil.init_state(this.basic_info));
         s['dead'] = false;
         s['restartFlag'] = true;
-        console.log({s})
         this.setState(s);
     }
     componentDidMount() {
@@ -94,7 +93,7 @@ class Game extends React.Component  {
     render() {
         return (
             <div className={"container"}>
-                <Card>
+                <Card style={{width: "100%"}}>
                     <CardHeader title={"Snek"} />
                     <CardContent>
                         <Board ref="board" 

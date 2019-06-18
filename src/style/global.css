@@ -18,7 +18,8 @@
     color: rgb(250, 90, 32);
 }
 .board {
-    margin: 30px;
+    margin: auto;
+    margin-bottom: 15px;
     background-color: black;
     display: flex;
     flex-direction: row;
