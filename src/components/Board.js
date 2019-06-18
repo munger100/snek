@@ -125,7 +125,7 @@ class Board extends React.Component {
         if (score == score_to_win) {
             console.log("YOU WON WOAH");
             this.props.handleWin();
-            this.props.toggle();
+            return this.props.toggle();
         } 
         
         let increment = false;
