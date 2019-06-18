@@ -6,8 +6,9 @@ class TouchControls extends React.Component {
     }
     getStyles = () => {
         const dimensions = {
-            width: '60px',
-            height: '60px',
+            width: '80px',
+            height: '70px',
+            margin: 0,
         }
         return {
             cell: {
@@ -19,13 +20,13 @@ class TouchControls extends React.Component {
                 border: "none",
             },
             table: {
-                height: '180px',
-                width: '180px',
-                'margin-left': '23%'
+                height: '240px',
+                width: '240px',
+                'margin-left': '13%'
             },
             container: {
-                height: 220 + 'px',
-                width: 100 + '%',
+                height: '260px',
+                width: '100%',
                 float: 'center',
             }
 
