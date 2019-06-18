@@ -11,6 +11,12 @@
     background-color: beige;
     fill-opacity: 0;
 }
+.head {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(250, 90, 32);
+    color: rgb(250, 90, 32);
+}
 .board {
     margin: 30px;
     background-color: black;

@@ -9,7 +9,8 @@ import SpeedSlider from './SpeedSlider';
 import GameSettingsList from './GameSettingsList';
 import * as DirUtil from "../utils/DirectionUtils";
 import * as GenUtil from "../utils/GeneralUtils";
-import RestartButton from "./RestartButton"
+import RestartButton from "./RestartButton";
+import TouchControls from "./TouchControls";
 class Game extends React.Component  {
     constructor(props) {
         super(props);
@@ -103,6 +104,7 @@ class Game extends React.Component  {
                             incrementScore={() => this.incrementScore()} 
                             handleWin={() => this.props.handleWin()} 
                             toggle={this.die}/>
+                        <TouchControls setDirection={this.changeDirection} />
                         <GameSettingsList handleChange={this.handleChange} />
                     </CardContent>
                     <CardActions className={'card-actions'} >

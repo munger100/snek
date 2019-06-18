@@ -115,7 +115,8 @@ class Board extends React.Component {
     }
     newCell = (alive, x, y, str="") => {
         const dir = this.getDirFromCellTap(x, y, this.state.direction, this.state.size);
-        return <Cell onClick={() => this.handleCellTap(dir)} alive={alive} key={`${x} ${y}`} ></Cell>
+        const is_head = this.props.state.head[0] === x && this.props.state.head[1] === y;
+        return <Cell onClick={() => this.handleCellTap(dir)} head={is_head} alive={alive} key={`${x} ${y}`} ></Cell>
     }
 
     calculateStep = () => {
