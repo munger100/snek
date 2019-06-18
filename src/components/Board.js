@@ -82,7 +82,6 @@ class Board extends React.Component {
             .every(x => !!x);
         if (!sameState) {
             const temp_state = {};
-            if (this.state.speed != this.props.state.speed) this.timer = setInterval(this.tick, this.props.state.speed);
             Object.keys(this.state).forEach((key) => temp_state[key] = this.props.state[key]);
             clearInterval(this.timer);
             this.timer = setInterval(this.tick, temp_state.speed);
