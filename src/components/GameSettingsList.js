@@ -1,5 +1,4 @@
 import React from 'react';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -8,7 +7,6 @@ import Collapse from '@material-ui/core/Collapse';
 import TimeIcon from '../icons/baseline-timer.svg'
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import Image from '@material-ui/core/'
 import SpeedSlider from './SpeedSlider';
 
 class GameSettingsList extends React.Component {
@@ -33,7 +31,7 @@ class GameSettingsList extends React.Component {
           >
             <ListItem button onClick={this.handleClick}>
                 <ListItemIcon>
-                    <img src={TimeIcon} />
+                    <img src={TimeIcon} alt="t" />
                 </ListItemIcon>
                 <ListItemText primary="Tick Speed (ms)" />
                 {this.state.open ? <ExpandLess /> : <ExpandMore />}

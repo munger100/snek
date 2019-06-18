@@ -1,10 +1,9 @@
 import React from 'react';
 import Cell from './Cell';
-import { DropDownMenu } from 'material-ui';
 class Board extends React.Component {
     constructor(props) {
         super(props);
-        const {live, cells, size, direction, last_dir, head, snake, treatCount, treat, score, scoreToWin, speed} = this.props.state;
+        const {live, cells, size, direction, head, snake, treatCount, treat, score, scoreToWin, speed} = this.props.state;
         this.score_to_win = size*size;
         const init_state = {
             cells,
@@ -47,8 +46,7 @@ class Board extends React.Component {
                     dir = "r";
                 }
                 break;
-            default:
-                break;
+            default: break;
         }
         this.props.changeDirection(dir);
     }
@@ -93,28 +91,6 @@ class Board extends React.Component {
             this.calculateStep();
         }
     };
-    getDirFromCellTap(x, y, dir, s) {
-        if (y === 0 || y === 8) dir = (y === 0 ? "u" : "d");
-        else if (y === 1 || y === 7) {
-            if (x === 0) dir = "l";
-            else if (x === s) dir = "r";
-            else dir = (y === 1 ? "u" : "d");
-        } else if (y === 2 || y === 6) {
-            if (x < 2) dir = "l";
-            else if (x >= s - 2) dir = "r";
-            else dir = (y === 2 ? "u" : "d");
-        }  else if (y === 3 || y === 5) {
-            if (x < 4) dir = "l";
-            else if (x === 4) dir = (y === 3 ? "u" : "d");
-            else dir = "r";
-        } else if (y === 4) {
-            if (x < 4) dir = 'l';
-            else if (x > 4) {
-                dir = "r";
-            }
-        }
-        return dir;
-    }
     newCell = (alive, x, y, str="") => {
         const is_head = this.props.state.head[0] === x && this.props.state.head[1] === y;
         return <Cell head={is_head} alive={alive} key={`${x} ${y}`} />
@@ -161,6 +137,8 @@ class Board extends React.Component {
             case "d":
                 x = head[0];
                 y = head[1] + 1;
+                break;
+            default:
                 break;
         }   
 

@@ -5,7 +5,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import React from 'react';
 import Board from './Board';
-import SpeedSlider from './SpeedSlider';
 import GameSettingsList from './GameSettingsList';
 import * as DirUtil from "../utils/DirectionUtils";
 import * as GenUtil from "../utils/GeneralUtils";
@@ -16,7 +15,7 @@ class Game extends React.Component  {
         super(props);
         this.size = 9;
         this.score_to_win = this.size*this.size;
-        this.basic_info = {size: this.size, scoreToWin: this.score_to_win},
+        this.basic_info = {size: this.size, scoreToWin: this.score_to_win};
         this.state = GenUtil.init_state(this.basic_info);
     };
     setGameState = (state, init=false) => {
@@ -50,25 +49,26 @@ class Game extends React.Component  {
         var dir = this.state.direction;
         switch (e.which) {
             case 87:       
-                if (dir != "d" && last_dir != "d") {
+                if (dir !== "d" && last_dir !== "d") {
                     dir = "u";
                 }
                 break;
             case 65:
-                if (dir != "r" && last_dir != "r") {
+                if (dir !== "r" && last_dir !== "r") {
                     dir = "l";
                 }
                 break;
             case 83:
-                if (dir != "u" && last_dir != "u") {
+                if (dir !== "u" && last_dir !== "u") {
                     dir = "d";
                 }
                 break;
             case 68:
-                if (dir != "l" && last_dir != "l") {
+                if (dir !== "l" && last_dir !== "l") {
                     dir = "r";
                 }
                 break;
+            default: break;
         }
         this.changeDirection(dir);
     }

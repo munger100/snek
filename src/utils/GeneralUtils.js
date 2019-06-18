@@ -1,4 +1,3 @@
-import React from 'react';
 export const init_state = (obj) => {
     const {size, scoreToWin} = obj;
     console.log(obj)
