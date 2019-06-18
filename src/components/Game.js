@@ -2,6 +2,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import React from 'react';
 import Board from './Board';
 import SpeedSlider from './SpeedSlider';
@@ -71,7 +72,7 @@ class Game extends React.Component  {
         this.changeDirection(dir);
     }
 
-    changeDirection(d) {
+    changeDirection = (d) => {
         this.setState({direction: d});
     }
     restartGame = () => {
@@ -93,6 +94,7 @@ class Game extends React.Component  {
         return (
             <div className={"container"}>
                 <Card>
+                    <CardHeader title={"Snek"} />
                     <CardContent>
                         <Board ref="board" 
                             setGameState={this.setGameState}
@@ -103,11 +105,11 @@ class Game extends React.Component  {
                             toggle={this.die}/>
                         <GameSettingsList handleChange={this.handleChange} />
                     </CardContent>
-                    <CardActions className={'card-actions'}>
-                        <p className={'score-display'}>Score: {this.state.score}</p>
-                        <p className={'direction-display'}>Direction: {DirUtil.directionToCharacter(this.state.direction)}</p>
+                    <CardActions className={'card-actions'} >
+                        <p className={'score-display'}> Score: {this.state.score}</p>
+                        <p className={'direction-display'}> {DirUtil.directionToCharacter(this.state.direction)}</p>
                         {this.state.dead ? 
-                            <RestartButton restartGame={this.restartGame} /> :
+                            <RestartButton className={'button'} restartGame={this.restartGame} /> :
                             <Button className={'button'} variant="contained" color="primary" onClick={this.toggleState}> {this.state.live ? "Stop" : "Start"} </Button>
                         }
                     </CardActions>

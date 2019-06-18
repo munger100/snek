@@ -48,7 +48,7 @@ class Board extends React.Component {
                 }
                 break;
         }
-        this.props.setDirection(dir);
+        this.props.changeDirection(dir);
     }
      
     pickFromTreatGrid = (grid) => {
@@ -115,7 +115,7 @@ class Board extends React.Component {
         return dir;
     }
     newCell = (alive, x, y, str="") => {
-        let dir = this.getDirFromCellTap(x, y, this.state.direction, this.state.size);
+        const dir = this.getDirFromCellTap(x, y, this.state.direction, this.state.size);
         return <Cell onClick={() => this.handleCellTap(dir)} alive={alive} key={`${x} ${y}`} ></Cell>
     }
 
