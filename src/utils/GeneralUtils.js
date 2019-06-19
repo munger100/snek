@@ -1,6 +1,5 @@
 export const init_state = (obj) => {
     const {size, scoreToWin} = obj;
-    console.log(obj)
     return {
         live: false,
         cells: initCells(size),

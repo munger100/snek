@@ -52,7 +52,9 @@ class Board extends React.Component {
     }
      
     pickFromTreatGrid = (grid) => {
-        const available = grid.filter(entry => !this.state.snake.includes(entry));
+        const available = grid.filter(entry => 
+            !this.state.snake.some(x => x.every((value, index) => value == entry[index]))
+        );
         return available[Math.floor(Math.random() * available.length)];
     }
     initTreatGrid = (size) => {
