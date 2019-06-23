@@ -22,34 +22,6 @@ class Board extends React.Component {
         this.state = init_state;
         this.timer = setInterval(this.tick, this.state.speed);
     };
-
-    handleCellTap(direction, cell) {
-        let dir = this.state.direction;
-        switch (direction) {
-            case 'u':       
-                if (dir !== "d") {
-                    dir = "u";
-                }
-                break;
-            case 'l':
-                if (dir !== "r") {
-                    dir = "l";
-                }
-                break;
-            case 'd':
-                if (dir !== "u") {
-                    dir = "d";
-                }
-                break;
-            case 'r':
-                if (dir !== "l") {
-                    dir = "r";
-                }
-                break;
-            default: break;
-        }
-        this.props.changeDirection(dir);
-    }
      
     pickFromTreatGrid = (grid) => {
         const available = grid.filter(entry => 

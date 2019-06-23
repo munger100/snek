@@ -32,7 +32,7 @@ class TouchControls extends React.Component {
     }
 
     handleTap = (d) => {
-        this.props.setDirection(d);
+        return this.props.setDirection(d);
     }
 
     render() {

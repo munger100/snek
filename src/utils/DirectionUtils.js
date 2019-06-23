@@ -42,3 +42,31 @@ export const onKeyPressed = (e) => {
     }
     this.changeDirection(dir);
 }
+
+export const handleDirectionChange = (direction, state) => {
+    let {direction: dir, last_dir} = state;
+    switch (direction) {
+        case 'u':       
+            if (last_dir !== "d") {
+                dir = "u";
+            }
+            break;
+        case 'l':
+            if (last_dir !== "r") {
+                dir = "l";
+            }
+            break;
+        case 'd':
+            if (last_dir !== "u") {
+                dir = "d";
+            }
+            break;
+        case 'r':
+            if (last_dir !== "l") {
+                dir = "r";
+            }
+            break;
+        default: break;
+    }
+    return dir;
+}

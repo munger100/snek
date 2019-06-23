@@ -73,6 +73,11 @@ class Game extends React.Component  {
         this.changeDirection(dir);
     }
 
+    manageTouchControl = (direction) => {
+        let dir = DirUtil.handleDirectionChange(direction, this.state);
+        this.changeDirection(dir);    
+    }
+
     changeDirection = (d) => {
         this.setState({direction: d});
     }
@@ -89,7 +94,6 @@ class Game extends React.Component  {
         clearInterval(this.timer);
         document.removeEventListener("keydown", event => this.onKeyPressed(event));
     }
-    
     render() {
         return (
             <div className={"container"}>
@@ -103,7 +107,7 @@ class Game extends React.Component  {
                             incrementScore={() => this.incrementScore()} 
                             handleWin={() => this.props.handleWin()} 
                             toggle={this.die}/>
-                        <TouchControls setDirection={this.changeDirection} />
+                        <TouchControls setDirection={this.manageTouchControl} />
                         <div style={{display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center'}} >
                             <p className={'score-display'}> Score: {this.state.score}</p>
                             <p className={'direction-display'}> {DirUtil.directionToCharacter(this.state.direction)}</p>
