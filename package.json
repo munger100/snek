@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.2.0",
     "material-ui": "^0.20.2",
     "material-ui-slider-label": "git+https://github.com/tariqwest/material-ui-slider-label.git",
-    "npm": "^6.9.0",
+    "npm": "^6.13.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-keydown": "^1.9.10",
